@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import click
+import posixpath
 from mlflow_export_import.common import mlflow_utils
 from mlflow_export_import.common import MlflowExportImportException
 from mlflow_export_import.common import USER_AGENT
@@ -20,7 +21,7 @@ class HttpClient():
             (host, token) = mlflow_utils.get_mlflow_host_token()
             if host is None:
                 raise MlflowExportImportException("MLflow host or token is not configured correctly")
-        self.api_uri = os.path.join(host, api_name)
+        self.api_uri = posixpath.join(host, api_name)
         self.token = token
 
     def _get(self, resource, params=None):
